@@ -68,16 +68,26 @@
 // ---------- Data ----------
 var POINTS = [
   { id:"start", kind:"start", label:"Irvine / SNA (start & end)", lat:33.6846, lng:-117.7857, gm:"John Wayne Airport, Irvine, CA" },
-  { id:"s1",  kind:"stop", num:1,  label:"Lone Pine",                 lat:36.6061, lng:-118.0626, gm:"Lone Pine, CA" },
-  { id:"s2",  kind:"stop", num:2,  label:"Whitney Portal Road",       lat:36.5872, lng:-118.2399, gm:"Whitney Portal, Lone Pine, CA" },
-  { id:"s3",  kind:"stop", num:3,  label:"Alabama Hills",             lat:36.6044, lng:-118.1182, gm:"Alabama Hills, Lone Pine, CA" },
-  { id:"s4",  kind:"stop", num:4,  label:"Bishop",                    lat:37.3614, lng:-118.3951, gm:"Bishop, CA" },
-  { id:"s5",  kind:"stop", num:5,  label:"Mammoth Lakes",             lat:37.6485, lng:-118.9721, gm:"Mammoth Lakes, CA" },
-  { id:"s6",  kind:"stop", num:6,  label:"Hot Creek Geological Site", lat:37.6614, lng:-118.8276, gm:"Hot Creek Geological Site, CA" },
-  { id:"s7",  kind:"stop", num:7,  label:"June Lake Loop",            lat:37.7785, lng:-119.0719, gm:"June Lake, CA" },
-  { id:"s8",  kind:"stop", num:8,  label:"Mono Lake (South Tufa)",    lat:37.9389, lng:-119.0264, gm:"Mono Lake South Tufa, CA" },
-  { id:"s9",  kind:"stop", num:9,  label:"Bodie State Historic Park", lat:38.2121, lng:-119.0127, gm:"Bodie State Historic Park, CA" },
-  { id:"s10", kind:"stop", num:10, label:"Lake Tahoe (South)",        lat:38.9399, lng:-119.9772, gm:"South Lake Tahoe, CA" },
+  { id:"s1",  kind:"stop", num:1,  label:"Lone Pine",                 lat:36.6061, lng:-118.0626, gm:"Lone Pine, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/01-2007-LonePine-Main01b.jpg/500px-01-2007-LonePine-Main01b.jpg" },
+  { id:"s2",  kind:"stop", num:2,  label:"Whitney Portal Road",       lat:36.5872, lng:-118.2399, gm:"Whitney Portal, Lone Pine, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Whitney_Portal_Road.jpg/500px-Whitney_Portal_Road.jpg" },
+  { id:"s3",  kind:"stop", num:3,  label:"Alabama Hills",             lat:36.6044, lng:-118.1182, gm:"Alabama Hills, Lone Pine, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Alabamahills.jpg/500px-Alabamahills.jpg" },
+  { id:"s4",  kind:"stop", num:4,  label:"Bishop",                    lat:37.3614, lng:-118.3951, gm:"Bishop, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Downtown_Bishop_with_the_Sierra_Nevada_Mountains_in_the_background.jpg/500px-Downtown_Bishop_with_the_Sierra_Nevada_Mountains_in_the_background.jpg" },
+  { id:"s5",  kind:"stop", num:5,  label:"Mammoth Lakes",             lat:37.6485, lng:-118.9721, gm:"Mammoth Lakes, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Mammoth_Lakes_Village.jpg/500px-Mammoth_Lakes_Village.jpg" },
+  { id:"s6",  kind:"stop", num:6,  label:"Hot Creek Geological Site", lat:37.6614, lng:-118.8276, gm:"Hot Creek Geological Site, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Hot_Creek_steam.jpg/500px-Hot_Creek_steam.jpg" },
+  { id:"s7",  kind:"stop", num:7,  label:"June Lake Loop",            lat:37.7785, lng:-119.0719, gm:"June Lake, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Town_of_June_Lake.JPG/500px-Town_of_June_Lake.JPG" },
+  { id:"s8",  kind:"stop", num:8,  label:"Mono Lake (South Tufa)",    lat:37.9389, lng:-119.0264, gm:"Mono Lake South Tufa, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Mono_Lake_South_Tufa_August_2013_007.jpg/500px-Mono_Lake_South_Tufa_August_2013_007.jpg" },
+  { id:"s9",  kind:"stop", num:9,  label:"Bodie State Historic Park", lat:38.2121, lng:-119.0127, gm:"Bodie State Historic Park, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bodie_September_2016_019.jpg/500px-Bodie_September_2016_019.jpg" },
+  { id:"s10", kind:"stop", num:10, label:"Lake Tahoe (South)",        lat:38.9399, lng:-119.9772, gm:"South Lake Tahoe, CA",
+    img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Tahoe_North_Shore_from_the_East_Shore.jpg/500px-Tahoe_North_Shore_from_the_East_Shore.jpg" },
   // Hotels (real availability for the trip dates)
   { id:"h_irv", kind:"hotel", label:"Homewood Suites by Hilton – SNA", lat:33.6954, lng:-117.8523, near:"Irvine", note:"4.8★ · ~$205/nt", gm:"Homewood Suites by Hilton Irvine John Wayne Airport" },
   { id:"h_lp1", kind:"hotel", label:"Best Western Frontier Motel",     lat:36.5937, lng:-118.0574, near:"Lone Pine", note:"4.3★ · ~$183/nt · top-rated in town", gm:"Best Western Frontier Motel, Lone Pine, CA" },
@@ -108,6 +118,7 @@ function icon(p, isSel){
 POINTS.forEach(function(p){
   var m = L.marker([p.lat,p.lng], { icon:icon(p,false), zIndexOffset: p.kind==='hotel'?0:500 });
   var pop = '<b>'+(p.kind==='stop'? p.num+'. ':'')+p.label+'</b>';
+  if (p.img) pop += '<br><img src="'+p.img+'" alt="'+p.label+'" loading="lazy" style="width:230px;max-width:100%;height:150px;object-fit:cover;border-radius:8px;margin-top:6px;display:block">';
   if (p.kind==='hotel') pop += '<br><span style="color:#2e6fb5">🏨 near '+p.near+' · '+p.note+'</span>';
   pop += '<br><span style="font-size:12px;color:#1b3a4b;cursor:pointer" onclick="window.__toggle(\''+p.id+'\')">▸ click marker to add/remove from route</span>';
   m.bindPopup(pop);
